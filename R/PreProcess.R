@@ -52,7 +52,7 @@ PreProcess <- function(textsDF = NULL, TextsCol, AuthorCol, IDCol, textsPattern 
     TextsV <- lapply(FileList, readLines)
   }
   else if (!is.null(textsDF)){
-    TextsV <- textDF[, TextsCol]
+    TextsV <- textsDF[, TextsCol]
   }
   
   # Basic clean
