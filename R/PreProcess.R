@@ -67,6 +67,7 @@ PreProcess <- function(textsDF = NULL, TextsCol, AuthorCol, IDCol, textsPattern 
 
   message("Removing stop words.")
   if (is.null(StopWords)){
+    stopwords<-tm::stopwords
     StopWords <- stopwords(kind = "en")
   }
   else if (!is.null(StopWords)){
