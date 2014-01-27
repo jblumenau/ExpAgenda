@@ -137,6 +137,16 @@ PreProcess <- function(textsDF = NULL, TextsCol, AuthorCol, IDCol, textsPattern 
   # Plain matrix
   term.doc <- as.matrix(TermDocS) 
   
+  # Normalize rows by Euclidean length
+  #scale.rows <- function(x,s) {
+  #  return(apply(x,2,function(x){x*s}))
+  #}
+  
+  #div.by.euc.length <- function(x) {
+  #  scale.rows(x,1/sqrt(rowSums(x^2)))
+  #}
+  #term.doc<-div.by.euc.length(term.doc)
+  
   # Summarize the data
   NAuthors <- nrow(authors)
   NStems <- ncol(term.doc)
