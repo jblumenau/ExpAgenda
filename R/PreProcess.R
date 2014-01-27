@@ -121,7 +121,7 @@ PreProcess <- function(textsDF = NULL, TextsCol, AuthorCol, IDCol, textsPattern 
   
   #### Create document term matrix ####
   # Convert to corpus
-  FullCorp <- Corpus(VectorSource(FullOrd[, 2]))
+  FullCorp <- Corpus(VectorSource(FullOrd[, 3]))
   
   # Stemming
   message("Creating stems.")
