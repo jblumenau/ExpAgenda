@@ -225,7 +225,7 @@ ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats 
 	for(i in 1:dim(out$rs)[2]){
 
 	subset<-head(order(out$rs[,i],decreasing=T))
-	top.six[[i]]<-data.frame(cbind(out$topics[i], document.info.DF[subset,]))
+	top.six[[i]]<-data.frame(cbind(Topics[i], document.info.DF[subset,]))
 
 	}
 	top.six<-do.call(rbind.data.frame,top.six)
