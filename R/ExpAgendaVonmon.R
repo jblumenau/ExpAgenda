@@ -214,8 +214,9 @@ ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats 
 	topics<-data.table(topics)
 	topics$TopicNumber<-as.factor(topics$TopicNumber)
 	topics$Stems<-as.character(topics$Stems)
-	topics<-topics[,paste(Stems,collapse=";"),by=list(topics$TopicNumber)]
-	Topics<-topics$V1
+	Topics<-rep(NA,n.cats)
+	for(i in 1:n.cats)Topics[i]<-paste(topics$Stems[topics$TopicNumber==i],collapse=";")
+	
   
   
   # Find stop 6 speeches from each topic
