@@ -239,26 +239,26 @@ ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats 
   
   }
   
-  #if(!is.null(ancilliary.author.info)){
+  if(!is.null(ancilliary.author.info)){
 
-#	theta.DF<-data.frame((cbind(levels(as.factor(as.character(authorID[,2]))),out$thetas)))
-#	for(i in 2:dim(theta.DF)[2]) theta.DF[,i]<-as.numeric(as.character(theta.DF[,i]))
-#	ancilliary.author.info.ID<-names(ancilliary.author.info)[1]
-#	names(theta.DF)<-c(ancilliary.author.info.ID,Topics)
-#	theta.DF<-merge(theta.DF,ancilliary.author.info)
+	theta.DF<-data.frame((cbind(levels(as.factor(as.character(authorID[,2]))),out$thetas)))
+	for(i in 2:dim(theta.DF)[2]) theta.DF[,i]<-as.numeric(as.character(theta.DF[,i]))
+	ancilliary.author.info.ID<-names(ancilliary.author.info)[1]
+	names(theta.DF)<-c(ancilliary.author.info.ID,Topics)
+	theta.DF<-merge(theta.DF,ancilliary.author.info)
   
- #   out <- list(pis, mus, taus, thetas, authorID,Topics, theta.DF)
-  #names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID',"topics","theta.DF")
+    out <- list(pis, mus, taus, thetas, authorID,Topics, theta.DF)
+  names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID',"topics","theta.DF")
 
   
-  #}
+  }
   
-  #if(!is.null(document.info.DF) & !is.null(ancilliary.author.info)){
+  if(!is.null(document.info.DF) & !is.null(ancilliary.author.info)){
   	
-  #	out <- list(pis, mus, taus, thetas, authorID,Topics,top.six,document.info.DF, theta.DF)
-  #names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID',"topics","top.six","document.info.DF","theta.DF")
+  	out <- list(pis, mus, taus, thetas, authorID,Topics,top.six,document.info.DF, theta.DF)
+  names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID',"topics","top.six","document.info.DF","theta.DF")
   	
-  #}
+  }
   
   class(out) <- "ExpAgendaOut"  
   return(out)
