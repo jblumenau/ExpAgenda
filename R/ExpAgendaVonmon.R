@@ -179,7 +179,7 @@ ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats 
     }
     
     for(i in 1:N){
-      pre.mle <- apply(sen.list[[4]], 2, sum)
+      pre.mle <- apply(sen.list[[i]], 2, sum)
       theta.ch <- thetas
       #for(j in 1:n.coals){
       #theta.ch[j,]<- theta.ch[j,] + pre.mle
