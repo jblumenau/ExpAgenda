@@ -129,7 +129,7 @@ PreProcess <- function(textsDF = NULL, TextsCol, AuthorCol, IDCol, textsPattern 
   Stems <- tm_map(FullCorp, stemDocument)
   
   # Create term document matrix
-  TermDoc <- DocumentTermMatrix(Stems)
+  TermDoc <- DocumentTermMatrix(Stems,control = list(weighting = function(x)weightTfIdf(x, normalize = FALSE))))
   
   # Remove sparse terms
   message("Removing sparse terms.")
@@ -139,14 +139,14 @@ PreProcess <- function(textsDF = NULL, TextsCol, AuthorCol, IDCol, textsPattern 
   term.doc <- as.matrix(TermDocS) 
   
   # Normalize rows by Euclidean length
-  scale.rows <- function(x,s) {
-    return(apply(x,2,function(x){x*s}))
-  }
+  #scale.rows <- function(x,s) {
+   # return(apply(x,2,function(x){x*s}))
+  #}
   
-  div.by.euc.length <- function(x) {
-    scale.rows(x,1/sqrt(rowSums(x^2)))
-  }
-  term.doc<-div.by.euc.length(term.doc)
+  #div.by.euc.length <- function(x) {
+  #  scale.rows(x,1/sqrt(rowSums(x^2)))
+  #}
+  #term.doc<-div.by.euc.length(term.doc)
   
   # Summarize the data
   NAuthors <- nrow(authors)
