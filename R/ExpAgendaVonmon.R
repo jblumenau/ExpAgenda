@@ -9,6 +9,8 @@
 #' @param kappa numeric. Distribution's dispersion [CHECK].
 #' @param verbose logical. Whether or not to print out each iteration.
 #' @param \code{ancilliary.author.info} A data frame of additional information for authors. First column must be the identifying string.
+#' @param \code{document.info.DF} A data frame of texts that was used to create term.doc. 
+
 #'
 #' @source Grimmer, J. (2010). A Bayesian Hierarchical Topic Model for Political Texts: Measuring Expressed Agendas in Senate Press Releases. Political Analysis, 18, 1-35. \url{http://pan.oxfordjournals.org/content/18/1/1.short}.
 #' 
@@ -21,7 +23,7 @@
 #' 
 #' @export
 
-ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats = 10, kappa = 400, verbose = TRUE, ancilliary.author.info=NULL){
+ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats = 10, kappa = 400, verbose = TRUE, ancilliary.author.info=NULL, document.info.DF=NULL){
   # Determine if obj or term.doc/authors is specified
   if (!is.null(obj) & !is.null(term.doc) & !is.null(authors)){
     stop("Only obj or term.doc & authors can be set at once.")
@@ -215,6 +217,27 @@ ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats 
 	topics<-topics[,paste(Stems,collapse=";"),by=list(topics$TopicNumber)]
 	Topics<-topics$V1
   
+  
+  # Find stop 6 speeches from each topic
+	if(is.null(document.info.DF)){
+	top.six<-list()
+	for(i in 1:dim(out$rs)[2]){
+
+	subset<-head(order(out$rs[,i],decreasing=T))
+	top.six[[i]]<-data.frame(cbind(out$topics[i], document.info.DF[subset,]))
+
+	}
+	top.six<-do.call(rbind.data.frame,top.six)
+  
+  best.topic<-rep(NA,dim(out$rs)[1])
+	for(i in 1:dim(out$rs)[1]) best.topic[i]<-which.max(out$rs[i,])
+	document.info.DF<-str(cbind(document.info.DF,best.topic))
+  
+  out <- list(pis, mus, taus, thetas, authorID,Topics, top.six,document.info.DF)
+  names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID',"topics","top.six","document.info.DF")
+  
+  }
+  
   if(!is.null(ancilliary.author.info)){
 
 	theta.DF<-data.frame((cbind(levels(as.factor(as.character(authorID[,2]))),out$thetas)))
@@ -225,9 +248,18 @@ ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats 
   
     out <- list(pis, mus, taus, thetas, authorID,Topics, theta.DF)
   names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID',"topics","theta.DF")
-  class(out) <- "ExpAgendaOut"
+
   
   }
+  
+  if(!is.null(document.info.DF) & !is.null(ancilliary.author.info)){
+  	
+  	out <- list(pis, mus, taus, thetas, authorID,Topics,top.six,document.info.DF, theta.DF)
+  names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID',"topics","top.six","document.info.DF","theta.DF")
+  	
+  }
+  
+  class(out) <- "ExpAgendaOut"  
   return(out)
 
 
