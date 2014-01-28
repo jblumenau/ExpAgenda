@@ -129,7 +129,7 @@ PreProcess <- function(textsDF = NULL, TextsCol, AuthorCol, IDCol, textsPattern 
   Stems <- tm_map(FullCorp, stemDocument)
   
   # Create term document matrix
-  TermDoc <- DocumentTermMatrix(Stems,control = list(weighting = function(x)weightTfIdf(x, normalize = FALSE))))
+  TermDoc <- DocumentTermMatrix(Stems,control = list(weighting = function(x)weightTfIdf(x, normalize = FALSE)))
   
   # Remove sparse terms
   message("Removing sparse terms.")
