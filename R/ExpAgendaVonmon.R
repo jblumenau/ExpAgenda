@@ -247,8 +247,8 @@ ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats 
 	names(theta.DF)<-c(ancilliary.author.info.ID,Topics)
 	theta.DF<-merge(theta.DF,ancilliary.author.info)
   
-    out <- list(pis, mus, taus, thetas, authorID,Topics, theta.DF)
-  names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID',"topics","theta.DF")
+    out <- list(pis, mus, taus, thetas, authorID,Topics,top.six,document.info.DF, theta.DF)
+  names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID',"topics","top.six","document.info.DF","theta.DF")
 
   
   }
