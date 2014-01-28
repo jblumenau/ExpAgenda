@@ -8,6 +8,7 @@
 #' @param n.cats numeric. Sets the number of components (topics) in the mixture model. The default is 10.
 #' @param kappa numeric. Distribution's dispersion [CHECK].
 #' @param verbose logical. Whether or not to print out each iteration.
+#' @param \code{ancilliary.author.info} A data frame of additional information for authors. First column must be the identifying string.
 #'
 #' @source Grimmer, J. (2010). A Bayesian Hierarchical Topic Model for Political Texts: Measuring Expressed Agendas in Senate Press Releases. Political Analysis, 18, 1-35. \url{http://pan.oxfordjournals.org/content/18/1/1.short}.
 #' 
@@ -20,7 +21,7 @@
 #' 
 #' @export
 
-ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats = 10, kappa = 400, verbose = TRUE){
+ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats = 10, kappa = 400, verbose = TRUE, ancilliary.author.info=NULL){
   # Determine if obj or term.doc/authors is specified
   if (!is.null(obj) & !is.null(term.doc) & !is.null(authors)){
     stop("Only obj or term.doc & authors can be set at once.")
@@ -206,5 +207,29 @@ ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats 
   out <- list(pis, mus, taus, thetas, authorID)
   names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID')
   class(out) <- "ExpAgendaOut"
+  
+	topics<-TopicSummary(out,NStems=5)
+	topics<-data.table(topics)
+	topics$TopicNumber<-as.factor(topics$TopicNumber)
+	topics$Stems<-as.character(topics$Stems)
+	topics<-topics[,paste(Stems,collapse=";"),by=list(topics$TopicNumber)]
+	Topics<-topics$V1
+  
+  if(!is.null(ancilliary.author.info)){
+
+	theta.DF<-data.frame((cbind(levels(as.factor(as.character(authorID[,2]))),out$thetas)))
+	for(i in 2:dim(theta.DF)[2]) theta.DF[,i]<-as.numeric(as.character(theta.DF[,i]))
+	ancilliary.author.info.ID<-names(ancilliary.author.info)[1]
+	names(theta.DF)<-c(ancilliary.author.info.ID,Topics)
+	theta.DF<-merge(theta.DF,ancilliary.author.info)
+  
+    out <- list(pis, mus, taus, thetas, authorID,Topics, theta.DF)
+  names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID',"topics","theta.DF")
+  class(out) <- "ExpAgendaOut"
+  
+  }
   return(out)
+
+
+
 }
