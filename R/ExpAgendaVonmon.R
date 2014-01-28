@@ -220,7 +220,7 @@ ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats 
   
   
   # Find stop 6 speeches from each topic
-	if(is.null(document.info.DF)){
+	if(!is.null(document.info.DF)){
 	top.six<-list()
 	for(i in 1:dim(out$rs)[2]){
 
