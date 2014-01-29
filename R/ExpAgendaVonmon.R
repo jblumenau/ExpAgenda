@@ -232,7 +232,7 @@ ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats 
   
   best.topic<-rep(NA,dim(out$rs)[1])
 	for(i in 1:dim(out$rs)[1]) best.topic[i]<-which.max(out$rs[i,])
-	Document.info.DF<-str(cbind(document.info.DF,best.topic))
+	Document.info.DF<-cbind(document.info.DF,best.topic)
   
   out <- list(pis, mus, taus, thetas, authorID,Topics, top.six,Document.info.DF)
   names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID',"topics","top.six","document.info.DF")
