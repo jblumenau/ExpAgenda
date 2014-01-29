@@ -232,9 +232,9 @@ ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats 
   
   best.topic<-rep(NA,dim(out$rs)[1])
 	for(i in 1:dim(out$rs)[1]) best.topic[i]<-which.max(out$rs[i,])
-	document.info.DF<-str(cbind(document.info.DF,best.topic))
+	Document.info.DF<-str(cbind(document.info.DF,best.topic))
   
-  out <- list(pis, mus, taus, thetas, authorID,Topics, top.six,document.info.DF)
+  out <- list(pis, mus, taus, thetas, authorID,Topics, top.six,Document.info.DF)
   names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID',"topics","top.six","document.info.DF")
   
   }
@@ -247,7 +247,7 @@ ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats 
 	names(theta.DF)<-c(ancilliary.author.info.ID,Topics)
 	theta.DF<-merge(theta.DF,ancilliary.author.info)
   
-    out <- list(pis, mus, taus, thetas, authorID,Topics,top.six,document.info.DF, theta.DF)
+    out <- list(pis, mus, taus, thetas, authorID,Topics,top.six,Document.info.DF, theta.DF)
   names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID',"topics","top.six","document.info.DF","theta.DF")
 
   
@@ -255,7 +255,7 @@ ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats 
   
   if(!is.null(document.info.DF) & !is.null(ancilliary.author.info)){
   	
-  	out <- list(pis, mus, taus, thetas, authorID, Topics, top.six, document.info.DF, theta.DF)
+  	out <- list(pis, mus, taus, thetas, authorID, Topics, top.six, Document.info.DF, theta.DF)
   names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID', "topics", "top.six", "document.info.DF", "theta.DF")
   	
   }
