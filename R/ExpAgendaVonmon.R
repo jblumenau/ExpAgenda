@@ -255,8 +255,8 @@ ExpAgendaVonmon <- function(obj = NULL, term.doc = NULL, authors = NULL, n.cats 
   
   if(!is.null(document.info.DF) & !is.null(ancilliary.author.info)){
   	
-  	out <- list(pis, mus, taus, thetas, authorID,Topics,top.six,document.info.DF, theta.DF)
-  names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID',"topics","top.six","document.info.DF","theta.DF")
+  	out <- list(pis, mus, taus, thetas, authorID, Topics, top.six, document.info.DF, theta.DF)
+  names(out) <- c('thetas', 'mus', 'rs', 'alpha', 'authorID', "topics", "top.six", "document.info.DF", "theta.DF")
   	
   }
   
